@@ -1,5 +1,6 @@
 @using System.Linq
 
+
 # @Model["Command"].Name
 
 @Model["Command"].Synopsis
@@ -21,13 +22,14 @@
 
 ## Parameters
 
-@if(Model["Command"].PARAMETERS.parameter != null) {
+@if(Model["Command"].PARAMETERS != null && Model["Command"].PARAMETERS.parameter != null) {
     @foreach(var param in Model["Command"].PARAMETERS.parameter) {
     <text>
     -@param.name <@param.parameterValue>
-
-        @foreach(var desc in param.description) {
+        @if(param.description != null) {
+            @foreach(var desc in param.description) {
 @OutString(desc)
+            }
         }
 Required?  @param.required
 
@@ -38,7 +40,6 @@ Default value? @param.defaultValue
 Accept pipeline input? @param.pipelineInput
 
 Accept wildchard characters? @param.globbing
-
     </text>
     }
 }
