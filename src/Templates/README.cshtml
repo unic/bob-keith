@@ -1,0 +1,18 @@
+# @Model["Module"].Name
+
+@foreach(var command in Model["Commands"])
+{
+@:##  @command.Name
+@command.Synopsis
+@:
+@:
+
+@foreach(var item in OutString(command.syntax).Trim().Split('\n'))
+{
+@:    @item
+@:
+}
+
+@:
+@: [Read more](api/@(command.Name).md)
+}

@@ -1,0 +1,8 @@
+# Summary
+
+This is the summary of my book.
+
+@foreach(var cmd in @Model["Commands"]) {
+@:* [@cmd.Name](api/@(cmd.Name).md)
+
+}
