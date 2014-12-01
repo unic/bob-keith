@@ -3,14 +3,25 @@
 
 # @Model["Command"].Name
 
-@Model["Command"].Synopsis
+@if(Model["Command"].details.description != null) {
+    @Model["Command"].Synopsis
+}
 
 ## Syntax
 
-@foreach(var item in OutString(Model["Command"].syntax).Trim().Split('\n'))
-{
+@if(Model["Command"].details.description != null) {
+    @foreach(var item in OutString(Model["Command"].syntax).Trim().Split('\n'))
+    {
 @:    @item
 @:
+    }
+}
+else {
+    @foreach(var item in OutString(@Model["Command"].Synopsis).Trim().Split('\n'))
+    {
+@:    @item
+@:
+    }
 }
 
 @if(Model["Command"].Description != null) {
