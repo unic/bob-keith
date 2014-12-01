@@ -24,7 +24,7 @@
 @if(Model["Command"].PARAMETERS.parameter != null) {
     @foreach(var param in Model["Command"].PARAMETERS.parameter) {
     <text>
-    -@param.parameterValue <@param.parameterValue>
+    -@param.name <@param.parameterValue>
 
         @foreach(var desc in param.description) {
 @OutString(desc)
@@ -50,10 +50,6 @@ Accept wildchard characters? @param.globbing
     @foreach(var ex in Model["Command"].Examples.example)
     {
 @:### @ex.title
-
-        @foreach(var item in ex.introduction){
-            @OutString(item)
-        }
 
         @foreach(var item in @ex.code.Split('\n'))
         {

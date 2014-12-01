@@ -17,4 +17,4 @@ function ResolvePath() {
     Write-Error "No path found for $RelativePath in package $PackageId"
 }
 
-[System.Reflection.Assembly]::LoadFrom((ResolvePath -PackageId "Microsoft.AspNet.Razor" -RelativePath "lib\net40\System.Web.Razor.dll"))
+[System.Reflection.Assembly]::LoadFrom((ResolvePath -PackageId "Microsoft.AspNet.Razor" -RelativePath "lib\net45\System.Web.Razor.dll"))
