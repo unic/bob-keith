@@ -10,8 +10,6 @@ function New-PSApiDoc
     )
     Process
     {
-        $compiler = New-Object  Mustache.FormatCompiler
-
         $moduleData = Get-Module -Name $ModuleName
         $commands = $moduleData.ExportedCommands | Select-Object -ExpandProperty 'Keys' | % {Get-Help $_ -Detailed}
         $basePath = Resolve-Path "$PSScriptRoot\..\Templates"
@@ -25,11 +23,15 @@ function New-PSApiDoc
             Format-RazorTemplate $template @{"Module"= $moduleData; "Commands"= $commands} | Out-File $outPath -Encoding ASCII
         }
 
-        #mkdir "$Path\api\"
+        $apiPath = "$Path\api\"
+        if(Test-Path $apiPath) {
+            rm $apiPath -Recurse
+        }
+        mkdir $apiPath | Out-Null
 
         foreach($command in $commands) {
             $template = Get-Content "$basePath\_command.cshtml" -Raw
-            $outPath = "$Path\api\$($command.Name).md"
+            $outPath = "$apiPath\$($command.Name).md"
             Format-RazorTemplate $template @{"Module"= $moduleData; "Command"= $command} | Out-File $outPath -Encoding ASCII
         }
     }
