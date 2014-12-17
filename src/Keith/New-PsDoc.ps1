@@ -13,7 +13,7 @@ function New-PsDoc
         if(-not (Test-Path $OutputLocation)){
             mkdir $OutputLocation | Out-Null
         }
-        cp $Path\* $OutputLocation
+        cp $Path\* $OutputLocation -Recurse -Force
         if($Module) {
             New-PsApiDoc -Path $OutputLocation -Module $Module
         }
