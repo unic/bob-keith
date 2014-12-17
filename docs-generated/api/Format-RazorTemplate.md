@@ -1,8 +1,8 @@
 
+
 # Format-RazorTemplate
 
 Renders the specified Razor template.
-
 ## Syntax
 
     Format-RazorTemplate [-Template] <String> [[-Model] <Object>] [<CommonParameters>]
@@ -22,7 +22,6 @@ with an optional model.
     
     -Template <String>
 
-
 A Razor template.
 
 
@@ -38,11 +37,9 @@ Default value?
 Accept pipeline input? false
 
 Accept wildchard characters? false
-
     
     
     -Model <Object>
-
 
 A model to use in the template.
 
@@ -59,7 +56,6 @@ Default value?
 Accept pipeline input? false
 
 Accept wildchard characters? false
-
     
 
 ## Examples

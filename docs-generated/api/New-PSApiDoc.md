@@ -1,8 +1,8 @@
 
+
 # New-PSApiDoc
 
 Generates the documentation for a specific module.
-
 ## Syntax
 
     New-PSApiDoc [-ModuleName] <String> [-Path] <String> [<CommonParameters>]
@@ -21,7 +21,6 @@ Generates the documentation for a specific module.
     
     -ModuleName <String>
 
-
 The name of the module for which the documentation should be generated.
 
 
@@ -37,11 +36,9 @@ Default value?
 Accept pipeline input? false
 
 Accept wildchard characters? false
-
     
     
     -Path <String>
-
 
 The Path where the documentation should be written to.
 
@@ -58,7 +55,6 @@ Default value?
 Accept pipeline input? false
 
 Accept wildchard characters? false
-
     
 
 ## Examples

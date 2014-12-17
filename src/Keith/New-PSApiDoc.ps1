@@ -37,22 +37,19 @@ function New-PSApiDoc
     {
         $moduleData = Get-Module -Name $ModuleName
         $commands = $moduleData.ExportedCommands | Select-Object -ExpandProperty 'Keys' | % {Get-Help $_ -Detailed}
-        $basePath = Resolve-Path "$PSScriptRoot\..\Templates"
-        $razorFiles = ls $basePath -Filter "*.cshtml" -Exclude "_*.cshtml" -Recurse
-        foreach($razorFile in $razorFiles) {
-            $template = Get-Content $razorFile.FullName -Raw
-            $relativePath = $razorFile.FullName.Replace($basePath, "")
-            $relativePath = $relativePath.Trim("\")
-            $relativePathWithoutExtesion = $relativePath.TrimEnd(".cshtml")
-            $outPath = "$Path\$relativePathWithoutExtesion.md"
-            Format-RazorTemplate $template @{"Module"= $moduleData; "Commands"= $commands} | Out-File $outPath -Encoding ASCII
-        }
-
         $apiPath = "$Path\api\"
+
         if(Test-Path $apiPath) {
             rm $apiPath -Recurse
         }
         mkdir $apiPath | Out-Null
+
+        $basePath = Resolve-Path "$PSScriptRoot\..\Templates"
+        Format-RazorTemplate (Get-Content "$basePath\README.cshtml" -Raw) @{"Module"= $moduleData; "Commands"= $commands} |
+            Out-File "$apiPath\README.md" -Encoding ASCII
+
+        (Get-Content "$Path\SUMMARY.md" -Raw) -replace "##API##", (Format-RazorTemplate (Get-Content "$basePath\SUMMARY.cshtml" -Raw) @{"Module"= $moduleData; "Commands"= $commands}) |
+            Out-File "$Path\SUMMARY.md" -Encoding ASCII
 
         foreach($command in $commands) {
             $template = Get-Content "$basePath\_command.cshtml" -Raw

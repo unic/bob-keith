@@ -1,8 +1,5 @@
-# Summary
-
-This is the summary of my book.
-
+* [@Model["Module"].Name - API](api/README.md)
 @foreach(var cmd in @Model["Commands"]) {
-@:* [@cmd.Name](api/@(cmd.Name).md)
+@:    * [@cmd.Name](api/@(cmd.Name).md)
 
 }
