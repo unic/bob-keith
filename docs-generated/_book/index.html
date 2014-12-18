@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />
         <title>Introduction | Keith</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="Lorem">
+        <meta name="description" content="To integrate Keith in a bob machine  simply add a paket dependency to &quot;Unic.Bob.Keith&quot; and add the following PowerShell script to the root of the repository:">
         <meta name="generator" content="GitBook 1.3.4">
         <meta name="HandheldFriendly" content="true"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -31,7 +31,7 @@
 
 
         
-    <div class="book" data-level="0" data-basepath="." data-revision="1418807779088">
+    <div class="book" data-level="0" data-basepath="." data-revision="1418914800791">
     
 
 <div class="book-summary">
@@ -224,7 +224,20 @@
                     <section class="normal" id="section-gitbook_1">
                     
                         <h1 id="keith">Keith</h1>
-<p>Lorem</p>
+<p>To integrate Keith in a bob machine  simply add a paket dependency to &quot;Unic.Bob.Keith&quot; and add the following PowerShell script to the root of the repository:</p>
+<pre><code>$PSScriptRoot = split-path -parent $MyInvocation.MyCommand.Definition
+
+$module = &quot;MyModuleName&quot;
+
+Import-Module &quot;$PSScriptRoot\packages\Unic.Bob.Keith\Keith&quot;
+Import-Module &quot;$PSScriptRoot\src\$module&quot; -Force
+
+New-PsDoc -Module $module -Path &quot;$PSScriptRoot\docs\&quot; -OutputLocation &quot;$PSScriptRoot\docs-generated&quot;
+
+gitbook build &quot;$PSScriptRoot\docs-generated\&quot;
+</code></pre><p>Execute then the Script each time you want to generate the docs.</p>
+<h2 id="requirments">Requirments</h2>
+<p>To generate the docs you need to have installed GitBook: <a href="https://github.com/GitbookIO/gitbook" target="_blank">https://github.com/GitbookIO/gitbook</a></p>
 
                     
                     </section>

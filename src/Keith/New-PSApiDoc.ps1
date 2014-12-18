@@ -35,7 +35,7 @@ function New-PSApiDoc
     )
     Process
     {
-        $moduleData = Get-Module -Name $ModuleName
+        $moduleData = Get-Module -Name $ModuleName | Select -Last 1
         $commands = $moduleData.ExportedCommands | Select-Object -ExpandProperty 'Keys' | % {Get-Help $_ -Detailed}
         $apiPath = "$Path\api\"
 
