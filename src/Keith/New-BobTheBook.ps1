@@ -7,10 +7,9 @@ function New-BobTheBook
         [Parameter(Mandatory=$true)]
         [string] $Username,
         [Parameter(Mandatory=$true)]
-        [string] $Password
-
-
-
+        [string] $Password,
+        [Parameter(Mandatory=$true)]
+        [string] $BobTheBook
     )
     Process
     {
@@ -21,8 +20,6 @@ function New-BobTheBook
         mkdir $bookDir
         mkdir "$bookDir\assets"
 
-        "#Bob the book" | Out-File "$OutputLocation\README.md" -Encoding ascii
-
         $machines = ConvertFrom-Json (Get-Content $PSScriptRoot\BobTheBook.json -Raw)
         $reposPath = Join-Path $OutputLocation "repos"
         mkdir $reposPath
@@ -32,6 +29,8 @@ function New-BobTheBook
         $credentials.Username = $Username
         $credentials.Password = $Password
         $cloneOptions.CredentialsProvider = {$credentials }
+
+        $summary = ""
 
         foreach($machine in $machines) {
             $name = $machine.name
@@ -50,55 +49,35 @@ function New-BobTheBook
             $modulePath = Join-Path $folder $machine.modulePath
             Import-Module (Join-Path $modulePath $machine.module)
             New-PSDoc "$folder\docs" $docsFolder $machine.module -Verbose
-
-            foreach($file in (ls $docsFolder -Recurse | ? { $_.Extension -eq  ".md" })) {
-                $currentFolder = $bookDir + (Split-Path $file.FullName).Replace($docsFolder, "")
+            $files = (ls $docsFolder -Recurse |
+            ? { ".md", ".jpg", ".jpg", ".jpeg", ".png", ".gif" -contains $_.Extension   })
+            foreach($file in $files) {
+                $currentFolder = "$bookDir\$name"  + (Split-Path $file.FullName -Parent).Replace($docsFolder, "")
                 if(-not (Test-Path $currentFolder)) {
                     mkdir $currentFolder | Out-Null
                 }
                 cp $file.FullName "$currentFolder\"
             }
 
-
-
-        }
-
-        return
-        $guys | ? {
-            Test-Path "$($_.FullName)\docs-generated"
-        } | % {
-            $name = $_.Name.Replace("bob-", "")
-            $moduleFolder = "$OutputLocation\$name"
-            mkdir "$OutputLocation\$name"
-
-
-            $basePath = "$($_.FullName)\docs-generated"
-            Write-Host $basePath
-            ls $basePath -Recurse | ? {
-                $_.Extension -eq  ".md"
-            } | % {
-                $dir = $moduleFolder + (Split-Path $_.FullName).Replace($basePath, "")
-                Write-Host $dir
-                if(-not (Test-Path $dir)) {
-                    mkdir $dir | Out-Null
-                }
-                cp $_.FullName "$dir\"
-            }
-
-            $assets = "$($_.FullName)\docs-generated\assets\"
+            $assets = "$docsFolder\assets\"
             if(Test-Path $assets) {
-                cp "$assets\*" "$OutputLocation\assets" -Recurse
+                cp "$assets\*" "$bookDir\assets" -Recurse
             }
-            "* [$name]($name/README.md)" | Out-File "$OutputLocation\SUMMARY.md" -Append -encoding ascii
-            $content = Get-Content "$($_.FullName)\docs-generated\SUMMARY.md"
-            $content = foreach($line in $content) {
+
+            $summary += "* [$name]($name/README.md)"
+            $thisSummary = Get-Content "$docsFolder\SUMMARY.md"
+            $editedSummary = foreach($line in $thisSummary) {
                 if($line.Trim() -ne "") {
-                    "    " + ($line -replace "(\[.*\])\((.*)\)", ('$1(' + $name +'/$2)'))
+                    "    " + ($line -replace "(\[.*\])\((.*)\)", ('$1(' + $name +'/$2)')) + "`n"
                 }
             }
-            $content | Out-File "$OutputLocation\SUMMARY.md" -Append -encoding ascii
+            $summary += $editedSummary
         }
 
-        gitbook build .\bob-thebook
+        cp "$BobTheBook\*" $bookDir -Recurse
+        $originalSummary = Get-Content "$bookDir\SUMMARY.md" -Raw
+        $summary = $originalSummary.Replace("##MACHINES##", $summary)
+        $summary | Out-File "$bookDir\SUMMARY.md" -Encoding UTF8
+        gitbook build $bookDir
     }
 }
