@@ -1,0 +1,5 @@
+source https://nuget.org/api/v2
+
+nuget Microsoft.AspNet.Razor
+
+source https://teamcity.unic.com/httpAuth/app/nuget/v1/FeedService.svc/ username: "%PAKET_USER%" password: "%PAKET_PASSWORD%"
