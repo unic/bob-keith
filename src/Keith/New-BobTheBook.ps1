@@ -49,22 +49,14 @@ function New-BobTheBook
             $modulePath = Join-Path $folder $machine.modulePath
             Import-Module (Join-Path $modulePath $machine.module)
             New-PSDoc "$folder\docs" $docsFolder $machine.module -Verbose
-            $files = (ls $docsFolder -Recurse |
-            ? { ".md", ".jpg", ".jpg", ".jpeg", ".png", ".gif" -contains $_.Extension   })
-            foreach($file in $files) {
-                $currentFolder = "$bookDir\$name"  + (Split-Path $file.FullName -Parent).Replace($docsFolder, "")
-                if(-not (Test-Path $currentFolder)) {
-                    mkdir $currentFolder | Out-Null
-                }
-                cp $file.FullName "$currentFolder\"
-            }
 
-            $assets = "$docsFolder\assets\"
-            if(Test-Path $assets) {
-                cp "$assets\*" "$bookDir\assets" -Recurse
-            }
+            $machineFolder = "$bookDir\$name"
+            mkdir $machineFolder
+            cp "$docsFolder\*" $machineFolder -Recurse
 
-            $summary += "* [$name]($name/README.md)"
+
+
+            $summary += "* [$name]($name/README.md)" + "`n"
             $thisSummary = Get-Content "$docsFolder\SUMMARY.md"
             $editedSummary = foreach($line in $thisSummary) {
                 if($line.Trim() -ne "") {
@@ -78,6 +70,11 @@ function New-BobTheBook
         $originalSummary = Get-Content "$bookDir\SUMMARY.md" -Raw
         $summary = $originalSummary.Replace("##MACHINES##", $summary)
         $summary | Out-File "$bookDir\SUMMARY.md" -Encoding UTF8
+
+        Push-Location $bookDir
+        npm install -d
+        Pop-Location
+
         gitbook build $bookDir
     }
 }
