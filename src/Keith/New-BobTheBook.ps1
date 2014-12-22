@@ -1,3 +1,14 @@
+<#
+.SYNOPSIS
+
+.DESCRIPTION
+
+
+.PARAMETER
+
+.EXAMPLE
+
+#>
 function New-BobTheBook
 {
     [CmdletBinding()]
@@ -30,6 +41,8 @@ function New-BobTheBook
         $credentials.Password = $Password
         $cloneOptions.CredentialsProvider = {$credentials }
 
+        $paket = ResolvePath "paket" "tools\paket.exe"
+
         $summary = ""
 
         foreach($machine in $machines) {
@@ -42,7 +55,7 @@ function New-BobTheBook
             $repo.Dispose();
 
             Push-Location $folder
-            & "$PSScriptRoot\..\..\.paket\paket.exe" "restore"
+            & $paket restore
             Pop-Location
 
             $docsFolder = Join-Path $folder "generated-docs"
