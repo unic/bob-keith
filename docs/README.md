@@ -1,21 +1,23 @@
+<div class="chapterlogo">![Keith](Keith-Chapman-sketch.png)</div>
 # Keith
 
-To integrate Keith in a bob machine  simply add a paket dependency to "Unic.Bob.Keith" and add the following PowerShell script to the root of the repository:
+Keith Chapman is the writer of the TV serie Bob the Builder. In our Bob world, Keith is responsible for the generation of an API documentation for PowerShell based machines.
 
-	$PSScriptRoot = split-path -parent $MyInvocation.MyCommand.Definition
+To integrate Keith in a bob machine, simply add a paket dependency to "Unic.Bob.Keith" and add the following PowerShell script to the root of the repository:
 
-	$module = "MyModuleName"
+    $PSScriptRoot = split-path -parent $MyInvocation.MyCommand.Definition
 
-	Import-Module "$PSScriptRoot\packages\Unic.Bob.Keith\Keith"
-	Import-Module "$PSScriptRoot\src\$module" -Force
+    $module = "MyModuleName"
 
-	New-PsDoc -Module $module -Path "$PSScriptRoot\docs\" -OutputLocation "$PSScriptRoot\docs-generated"
+    Import-Module "$PSScriptRoot\packages\Unic.Bob.Keith\Keith"
+    Import-Module "$PSScriptRoot\src\$module" -Force
 
-	gitbook build "$PSScriptRoot\docs-generated\"
+    New-PsDoc -Module $module -Path "$PSScriptRoot\docs\" -OutputLocation "$PSScriptRoot\docs-generated"
 
-Execute then the Script each time you want to generate the docs.
+    gitbook build "$PSScriptRoot\docs-generated\"
 
-## Requirments 
+Execute the Script each time you want to generate the docs.
 
-To generate the docs you need to have installed GitBook: https://github.com/GitbookIO/gitbook
+## Requirments
 
+To generate the docs you need to have [GitBook](https://github.com/GitbookIO/gitbook) installed.
