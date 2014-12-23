@@ -1,13 +1,24 @@
 <#
 .SYNOPSIS
-
+Create a new book for all bob machines.
 .DESCRIPTION
+New-BobTheBook clones all bob machines, creates a book from their documentation
+and merges all to one big "Bob - The Book"
 
+.PARAMETER OutputLocation
+The path to the location, where the repos should be cloned and the book written.
 
-.PARAMETER
+.PARAMETER Username
+The username for the git repository.
+
+.PARAMETER Password
+The password for the git repository.
+
+.PARAMETER BobTheBook
+The path to the book which should be used as base for the book.
 
 .EXAMPLE
-
+New-BobTheBook D:\temp\bobthebook -Username yannis -Password Pass@word$ -BobTheBook D:\sources\bob-thebook
 #>
 function New-BobTheBook
 {
@@ -24,15 +35,21 @@ function New-BobTheBook
     )
     Process
     {
-        Write-Verbose "Remove content of $OutputLocation"
-        rm $OutputLocation\* -Recurse -Force
+        if(-not (Test-Path $OutputLocation)) {
+            mkdir $OutputLocation | Out-Null
+        }
         $bookDir = Join-Path $OutputLocation "book"
 
+        if(Test-Path $bookDir) {
+            rm $bookDir -Recurse -Force
+        }
         mkdir $bookDir
-        mkdir "$bookDir\assets"
 
         $machines = ConvertFrom-Json (Get-Content $PSScriptRoot\BobTheBook.json -Raw)
         $reposPath = Join-Path $OutputLocation "repos"
+        if(Test-Path $bookDir) {
+            rm $reposPath -Recurse -Force
+        }
         mkdir $reposPath
 
         $cloneOptions = New-Object LibGit2Sharp.CloneOptions
@@ -66,8 +83,6 @@ function New-BobTheBook
             $machineFolder = "$bookDir\$name"
             mkdir $machineFolder
             cp "$docsFolder\*" $machineFolder -Recurse
-
-
 
             $summary += "* [$name]($name/README.md)" + "`n"
             $thisSummary = Get-Content "$docsFolder\SUMMARY.md"
