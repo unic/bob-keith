@@ -21,3 +21,7 @@ Execute the Script each time you want to generate the docs.
 ## Requirments
 
 To generate the docs you need to have [GitBook](https://github.com/GitbookIO/gitbook) installed.
+
+## Bob - The book
+_Bob - The Book_ is the full documentation of Bob. To create a new edition use the [`New-BobTheBook`](api/New-BobTheBook.md) cmdlet.
+It creates a book based on the [general documentation](https://git.unic.com/projects/SCMBOB/repos/bob-thebook/browse) and the documentation of all Bob machines.

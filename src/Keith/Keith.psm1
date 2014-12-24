@@ -17,4 +17,7 @@ function ResolvePath() {
     Write-Error "No path found for $RelativePath in package $PackageId"
 }
 
-[System.Reflection.Assembly]::LoadFrom((ResolvePath -PackageId "Microsoft.AspNet.Razor" -RelativePath "lib\net45\System.Web.Razor.dll"))
+[System.Reflection.Assembly]::Load([System.IO.File]::ReadAllBytes(
+(ResolvePath -PackageId "Microsoft.AspNet.Razor" -RelativePath "lib\net45\System.Web.Razor.dll")))
+
+[System.Reflection.Assembly]::LoadFile((ResolvePath -PackageId "LibGit2Sharp" -RelativePath "lib\net40\LibGit2Sharp.dll"))
