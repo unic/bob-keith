@@ -39,18 +39,12 @@ else {
     -@param.name <@param.parameterValue>
         @if(param.description != null) {
             @foreach(var desc in param.description) {
-@OutString(desc)
+_@OutString(desc)_
             }
         }
-Required?  @param.required
-
-Position? @param.position
-
-Default value? @param.defaultValue
-
-Accept pipeline input? @param.pipelineInput
-
-Accept wildchard characters? @param.globbing
+| Position | Required | Default value | Accept pipeline input | Accept wildchard characters |
+| -------- | -------- | ------------- | --------------------- | --------------------------- |
+| @param.position | @param.required | @param.defaultValue | @param.pipelineInput | @param.globbing |
     </text>
     }
 }
