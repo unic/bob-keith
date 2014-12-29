@@ -29,7 +29,7 @@ function New-BobTheBook
         [Parameter(Mandatory=$true)]
         [string] $Username,
         [Parameter(Mandatory=$true)]
-        [string] $Password,
+        [SecureString] $Password,
         [Parameter(Mandatory=$true)]
         [string] $BobTheBook
     )
@@ -47,7 +47,7 @@ function New-BobTheBook
 
         $machines = ConvertFrom-Json (Get-Content $PSScriptRoot\BobTheBook.json -Raw)
         $reposPath = Join-Path $OutputLocation "repos"
-        if(Test-Path $bookDir) {
+        if(Test-Path $reposPath) {
             rm $reposPath -Recurse -Force
         }
         mkdir $reposPath
@@ -55,7 +55,7 @@ function New-BobTheBook
         $cloneOptions = New-Object LibGit2Sharp.CloneOptions
         $credentials = New-Object LibGit2Sharp.UsernamePasswordCredentials
         $credentials.Username = $Username
-        $credentials.Password = $Password
+        $credentials.Password = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password))
         $cloneOptions.CredentialsProvider = {$credentials }
 
         $paket = ResolvePath "paket" "tools\paket.exe"
