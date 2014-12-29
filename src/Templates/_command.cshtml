@@ -39,12 +39,16 @@ else {
     -@param.name <@param.parameterValue>
         @if(param.description != null) {
             @foreach(var desc in param.description) {
-_@OutString(desc)_
+@:_@OutString(desc).Trim()_
             }
         }
 | Position | Required | Default value | Accept pipeline input | Accept wildchard characters |
 | -------- | -------- | ------------- | --------------------- | --------------------------- |
 | @param.position | @param.required | @param.defaultValue | @param.pipelineInput | @param.globbing |
+
+
+----
+
     </text>
     }
 }
