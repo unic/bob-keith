@@ -1,12 +1,34 @@
 <#
 .SYNOPSIS
-
+New-GitBook builds a GitBook
 .DESCRIPTION
+New-GitBook builds a GitBook without any system wide requirments.
+In detail New-GitBook performs following tasks:
+* Fixing npm bugs
+* Installing GitBook in a TempPath
+* If on a build-server, credentials will be stored in a local _netrc in temp path
+* Install all npm modules of the book
+*
 
+.PARAMETER GitBookPath
+The path to the GitBook to build.
 
-.PARAMETER
+.PARAMETER TempPath
+A local temporary path, to use for GitBook and as USEREPROFILE on build server.
+
+.PARAMETER UserName
+The UserName for git.unic.com
+
+.PARAMETER Password
+The Password for git.unic.com
+
+.PARAMETER Buildserver
+If $true, credentials will be written to _netrc and some hacks done to solve problems with x86 and x64 problems.
+The problem is that the USERPROFILE of the Teamcity Agent under C:\Windows\system32 is
+and therefore it is differnt under x86 or x64
 
 .EXAMPLE
+New-GitBook ./docs ./temp svc-git-bu-ecs dummy -Buildserver
 
 #>
 function New-GitBook
