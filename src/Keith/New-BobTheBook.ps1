@@ -35,6 +35,8 @@ function New-BobTheBook
     )
     Process
     {
+        $clearPassword = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password))
+
         if(-not (Test-Path $OutputLocation)) {
             mkdir $OutputLocation | Out-Null
         }
@@ -99,6 +101,6 @@ function New-BobTheBook
         $summary = $originalSummary.Replace("##MACHINES##", $summary)
         $summary | Out-File "$bookDir\SUMMARY.md" -Encoding UTF8
 
-        New-GitBook -GitBookPath $bookDir -TempPath ".\temp" -UserName $Username -Password $Password -Buildserver:$true
+        New-GitBook -GitBookPath $bookDir -TempPath (Resolve-Path ".\temp").Path -UserName $Username -Password $clearPassword -Buildserver:$true
     }
 }
