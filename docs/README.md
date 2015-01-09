@@ -3,7 +3,9 @@
 
 Keith Chapman is the writer of the TV serie Bob the Builder. In our Bob world, Keith is responsible for the generation of an API documentation for PowerShell based machines.
 
-To integrate Keith in a bob machine, simply add a paket dependency to "Unic.Bob.Keith" and add the following PowerShell script to the root of the repository:
+To integrate Keith in a bob machine, simply add a paket dependency to "Unic.Bob.Keith" and add the following PowerShell script to the root of the repository and name it **generateDocs.ps1**:
+
+    param($username, $password, [switch]$Buildserver)
 
     $PSScriptRoot = split-path -parent $MyInvocation.MyCommand.Definition
 
@@ -14,9 +16,10 @@ To integrate Keith in a bob machine, simply add a paket dependency to "Unic.Bob.
 
     New-PsDoc -Module $module -Path "$PSScriptRoot\docs\" -OutputLocation "$PSScriptRoot\docs-generated"
 
-    gitbook build "$PSScriptRoot\docs-generated\"
+    New-GitBook "$PSScriptRoot\docs-generated" "$PSScriptRoot\temp" $username $password -Buildserver:$Buildserver
 
-Execute the Script each time you want to generate the docs.
+
+The script is executed on each commit on TeamCity and is also used by _Bob - The Book_.
 
 ## Requirments
 
