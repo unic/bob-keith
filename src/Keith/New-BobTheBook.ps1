@@ -99,10 +99,6 @@ function New-BobTheBook
         $summary = $originalSummary.Replace("##MACHINES##", $summary)
         $summary | Out-File "$bookDir\SUMMARY.md" -Encoding UTF8
 
-        Push-Location $bookDir
-        npm install -d
-        Pop-Location
-
-        gitbook build $bookDir
+        New-GitBook $bookDir "." $Username $Password -Buildserver
     }
 }
