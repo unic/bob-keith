@@ -57,7 +57,7 @@ function New-GitBook
             $localTempPath = "$tempPath\local"
             $oldProfile = $env:USERPROFILE
             $env:USERPROFILE = $localTempPath
-
+            Write-Host "Set npm cache to ${env:TEMP}\npm-cache"
             $cachePath = "${env:TEMP}\npm-cache"
             npm set cache $cachePath
         }
