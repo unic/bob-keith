@@ -99,6 +99,6 @@ function New-BobTheBook
         $summary = $originalSummary.Replace("##MACHINES##", $summary)
         $summary | Out-File "$bookDir\SUMMARY.md" -Encoding UTF8
 
-        New-GitBook $bookDir "." $Username $Password -Buildserver
+        New-GitBook $bookDir ".\temp" $Username $Password -Buildserver
     }
 }
