@@ -28,3 +28,5 @@ To generate the docs you need to have [GitBook](https://github.com/GitbookIO/git
 ## Bob - The book
 _Bob - The Book_ is the full documentation of Bob. To create a new edition use the [`New-BobTheBook`](api/New-BobTheBook.md) cmdlet.
 It creates a book based on the [general documentation](https://git.unic.com/projects/SCMBOB/repos/bob-thebook/browse) and the documentation of all Bob machines.
+To create a new Version of _Bob - The Book_ start a new build on [TeamCity](https://teamcity.unic.com/viewType.html?buildTypeId=Sitecore_Frameworks_Bob_TheBook_BuildTheBook)
+The newest Version of _Bob - The Book_  can also be downloaded on [TeamCity](https://teamcity.unic.com/repository/download/Sitecore_Frameworks_Bob_TheBook_BuildTheBook/.lastSuccessful/index.html)
