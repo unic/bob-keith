@@ -57,6 +57,9 @@ function New-PSApiDoc
             if($command.examples.example -is [PSObject]) {
                 $command.examples.example = @($command.examples.example)
             }
+            if($command.PARAMETERS.parameter -is [PSObject]) {
+                $command.PARAMETERS.parameter = @($command.PARAMETERS.parameter)
+            }
             Format-RazorTemplate $template @{"Module"= $moduleData; "Command"= $command} | Out-File $outPath -Encoding ASCII
         }
     }
