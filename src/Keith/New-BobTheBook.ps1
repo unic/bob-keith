@@ -101,6 +101,9 @@ function New-BobTheBook
         $summary = $originalSummary.Replace("##MACHINES##", $summary)
         $summary | Out-File "$bookDir\SUMMARY.md" -Encoding UTF8
 
+        if(-not (Test-Path ".\temp")) {
+            mkdir ".\temp"
+        }
         New-GitBook -GitBookPath $bookDir -TempPath (Resolve-Path ".\temp").Path -UserName $Username -Password $plainTextPassword -Buildserver:$true
     }
 }
