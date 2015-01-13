@@ -35,6 +35,8 @@ function New-BobTheBook
     )
     Process
     {
+        $plainTextPassword = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password))
+
         if(-not (Test-Path $OutputLocation)) {
             mkdir $OutputLocation | Out-Null
         }
@@ -99,10 +101,9 @@ function New-BobTheBook
         $summary = $originalSummary.Replace("##MACHINES##", $summary)
         $summary | Out-File "$bookDir\SUMMARY.md" -Encoding UTF8
 
-        Push-Location $bookDir
-        npm install -d
-        Pop-Location
-
-        gitbook build $bookDir
+        if(-not (Test-Path ".\temp")) {
+            mkdir ".\temp"
+        }
+        New-GitBook -GitBookPath $bookDir -TempPath (Resolve-Path ".\temp").Path -UserName $Username -Password $plainTextPassword -Buildserver:$true
     }
 }
