@@ -1,28 +1,31 @@
+<#
+.SYNOPSIS
+Renders the specified Razor template.
+
+.DESCRIPTION
+Renders the specified Razor template
+with an optional model.
+Based on: https://github.com/knutkj/misc/blob/master/PowerShell/Razor/Render-RazorTemplate.ps1
+
+.PARAMETER Template
+The content of a Razor template.
+.PARAMETER Model
+ A model to use in the template.
+
+.EXAMPLE
+Render-RazorTemplate -Template "Hello World!"
+Output: Hello World!
+
+.EXAMPLE
+Render-RazorTemplate "<ul>@foreach(var i in Model){<li>@i</li>}</ul>" (0..3)
+Output: <ul><li>0</li><li>1</li><li>2</li><li>3</li></ul>
+
+#>
 Function Format-RazorTemplate {
-#.SYNOPSIS
-# Renders the specified Razor template.
-#
-#.DESCRIPTION
-# Renders the specified Razor template
-# with an optional model.
-#
-#.EXAMPLE
-# Render-RazorTemplate -Template "Hello World!"
-# Output: Hello World!
-#
-#.EXAMPLE
-# Render-RazorTemplate "<ul>@foreach(var i in Model){<li>@i</li>}</ul>" (0..3)
-# Output: <ul><li>0</li><li>1</li><li>2</li><li>3</li></ul>
 [CmdLetBinding()]
 param (
-    #
-    # A Razor template.
-    #
     [Parameter(Mandatory=$true)]
     [string] $Template,
-    #
-    # A model to use in the template.
-    #
     [Parameter()]
     [object] $Model = $null
 )
