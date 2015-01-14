@@ -98,6 +98,7 @@ function New-BobTheBook
 
         cp "$BobTheBook\*" $bookDir -Recurse
         $originalSummary = Get-Content "$bookDir\SUMMARY.md" -Raw
+        $summary = $summary.Trim()
         $summary = $originalSummary.Replace("##MACHINES##", $summary)
         $summary | Out-File "$bookDir\SUMMARY.md" -Encoding UTF8
 
