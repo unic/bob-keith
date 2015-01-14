@@ -5,6 +5,7 @@ Renders the specified Razor template.
 .DESCRIPTION
 Renders the specified Razor template
 with an optional model.
+Based on: https://github.com/knutkj/misc/blob/master/PowerShell/Razor/Render-RazorTemplate.ps1
 
 .PARAMETER Template
 The content of a Razor template.

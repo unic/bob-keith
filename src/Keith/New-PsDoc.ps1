@@ -7,7 +7,7 @@ Generates a new documentation for a PowerShell module,
 by merging the handwritten and the API documentation.
 
 .PARAMETER Path
-The path to the handwritten documentaion.
+The path to the handwritten documentation.
 
 .PARAMETER OutputLocation
 The path to a folder where the generated documentation should be written.
@@ -16,7 +16,7 @@ The path to a folder where the generated documentation should be written.
 The name of the PowerShell module, for which the API doc should be generated.
 
 .EXAMPLE
-New-PsDoc -Path .\docs -OutputLocation .\docs-generated -Module keith 
+New-PsDoc -Path .\docs -OutputLocation .\docs-generated -Module keith
 
 #>
 function New-PsDoc
