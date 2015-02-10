@@ -78,10 +78,17 @@ function New-BobTheBook
             Pop-Location
 
             $docsFolder = Join-Path $folder "generated-docs"
-            $modulePath = Join-Path $folder $machine.modulePath
-            Import-Module (Join-Path $modulePath $machine.module)
-            New-PSDoc "$folder\docs" $docsFolder $machine.module -Verbose
-
+            if($machine.module -and $machine.modulePath) {
+                $modulePath = Join-Path $folder $machine.modulePath
+                Import-Module (Join-Path $modulePath $machine.module)
+                New-PSDoc "$folder\docs" $docsFolder $machine.module -Verbose
+            }
+            else {
+                if(-not (Test-Path $docsFolder)) {
+                    mkdir $docsFolder
+                }
+                cp "$folder\docs\*" $docsFolder -Recurse
+            }
             $machineFolder = "$bookDir\$name"
             mkdir $machineFolder
             cp "$docsFolder\*" $machineFolder -Recurse
