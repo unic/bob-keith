@@ -100,7 +100,7 @@ function New-BobTheBook
                     "    " + ($line -replace "(\[.*\])\((.*)\)", ('$1(' + $name +'/$2)')) + "`n"
                 }
             }
-            $summary += $editedSummary
+            $summary += [string]::Join("", $editedSummary)
         }
 
         cp "$BobTheBook\*" $bookDir -Recurse
