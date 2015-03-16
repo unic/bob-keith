@@ -69,10 +69,6 @@ function New-BobTheBook
             $folder = Join-Path $reposPath $name
             [LibGit2Sharp.Repository]::Clone($machine.url, $folder, $cloneOptions)
 
-            $repo = New-Object LibGit2Sharp.Repository $folder
-            $repo.Branches["refs/remotes/origin/develop"].Checkout()
-            $repo.Dispose();
-
             Push-Location $folder
             & $paket restore
             Pop-Location
