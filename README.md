@@ -7,4 +7,4 @@ Keith is responsible for generating the documentation of Bob.
 
 ## Documentation
 
-<https://me.unic.com/display/BULLWCMS/Keith>
+<https://teamcity.unic.com/repository/download/Sitecore_Frameworks_Bob_TheBook_BuildTheBook/.lastSuccessful/Keith/README.html>
