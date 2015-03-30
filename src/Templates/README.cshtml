@@ -1,4 +1,4 @@
-# @Model["Module"].Name
+# @Model["Module"].Name - API
 
 @foreach(var command in Model["Commands"])
 {
@@ -28,5 +28,6 @@ else {
 }
 
 @:
-@: [Read more](api/@(command.Name).md)
+@: [Read more](@(command.Name).md)
+
 }

@@ -1,7 +1,11 @@
+﻿param($username, $password, [switch]$Buildserver)
+
 $PSScriptRoot = split-path -parent $MyInvocation.MyCommand.Definition
 
-Import-Module "$PSScriptRoot\src\Keith" -Force
+$module = "Keith"
 
-New-PSApiDoc -ModuleName Keith -Path "$PSScriptRoot\docs\"
+Import-Module "$PSScriptRoot\src\$module" -Force
 
-gitbook build "$PSScriptRoot\docs\"
+New-PsDoc -Module $module -Path "$PSScriptRoot\docs\" -OutputLocation "$PSScriptRoot\docs-generated"
+
+New-GitBook "$PSScriptRoot\docs-generated" "$PSScriptRoot\temp" $username $password -Buildserver:$Buildserver

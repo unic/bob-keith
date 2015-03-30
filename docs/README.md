@@ -1,17 +1,32 @@
+<div class="chapterlogo">![Keith](Keith-Chapman-sketch.png)</div>
 # Keith
 
-##  Format-RazorTemplate
-Renders the specified Razor template.
+Keith Chapman is the writer of the TV serie Bob the Builder. In our Bob world, Keith is responsible for the generation of an API documentation for PowerShell based machines.
 
-    Format-RazorTemplate [-Template] <String> [[-Model] <Object>] [<CommonParameters>]
+To integrate Keith in a bob machine, simply add a paket dependency to "Unic.Bob.Keith" and add the following PowerShell script to the root of the repository and name it **generateDocs.ps1**:
+
+    param($username, $password, [switch]$Buildserver)
+
+    $PSScriptRoot = split-path -parent $MyInvocation.MyCommand.Definition
+
+    $module = "MyModuleName"
+
+    Import-Module "$PSScriptRoot\packages\Unic.Bob.Keith\Keith"
+    Import-Module "$PSScriptRoot\src\$module" -Force
+
+    New-PsDoc -Module $module -Path "$PSScriptRoot\docs\" -OutputLocation "$PSScriptRoot\docs-generated"
+
+    New-GitBook "$PSScriptRoot\docs-generated" "$PSScriptRoot\temp" $username $password -Buildserver:$Buildserver
 
 
- [Read more](api/Format-RazorTemplate.md)
-##  New-PSApiDoc
-Generates the documentation for a specific module.
+The script is executed on each commit on TeamCity and is also used by _Bob - The Book_.
 
-    New-PSApiDoc [-ModuleName] <String> [-Path] <String> [<CommonParameters>]
+## Requirments
 
+To generate the docs you need to have [GitBook](https://github.com/GitbookIO/gitbook) installed.
 
- [Read more](api/New-PSApiDoc.md)
-
+## Bob - The book
+_Bob - The Book_ is the full documentation of Bob. To create a new edition use the [`New-BobTheBook`](api/New-BobTheBook.md) cmdlet.
+It creates a book based on the [general documentation](https://git.unic.com/projects/SCMBOB/repos/bob-thebook/browse) and the documentation of all Bob machines.
+To create a new Version of _Bob - The Book_ start a new build on [TeamCity](https://teamcity.unic.com/viewType.html?buildTypeId=Sitecore_Frameworks_Bob_TheBook_BuildTheBook)
+The newest Version of _Bob - The Book_  can also be downloaded on [TeamCity](https://teamcity.unic.com/repository/download/Sitecore_Frameworks_Bob_TheBook_BuildTheBook/.lastSuccessful/index.html)
