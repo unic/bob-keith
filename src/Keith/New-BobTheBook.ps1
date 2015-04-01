@@ -81,7 +81,7 @@ function New-BobTheBook
                     Import-Module $keithPath
                     Import-Module (Join-Path $modulePath $moduleName)
                     New-PSDoc "$machineFolder\docs" $docsFolder $moduleName -Verbose
-                } -args ((Get-Module Keith).Path), $modulePath, $docsFolder, $folder, $name
+                } -args ((Get-Module Keith).Path), $modulePath, $docsFolder, $folder, $machine.module
             }
             else {
                 if(-not (Test-Path $docsFolder)) {
