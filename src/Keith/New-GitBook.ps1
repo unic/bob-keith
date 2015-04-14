@@ -64,7 +64,7 @@ function New-GitBook
 
         Push-Location $TempPath
         Resolve-Path .
-        npm install gitbook
+        npm install gitbook@1.5.0
         Pop-Location
 
         if($buildserver) {
