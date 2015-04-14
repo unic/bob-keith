@@ -48,7 +48,8 @@ function New-PSApiDoc
         Format-RazorTemplate (Get-Content "$basePath\README.cshtml" -Raw) @{"Module"= $moduleData; "Commands"= $commands} |
             Out-File "$apiPath\README.md" -Encoding ASCII
 
-        (Get-Content "$Path\SUMMARY.md" -Raw) -replace "##API##", (Format-RazorTemplate (Get-Content "$basePath\SUMMARY.cshtml" -Raw) @{"Module"= $moduleData; "Commands"= $commands}) |
+        $apiSummary = Format-RazorTemplate (Get-Content "$basePath\SUMMARY.cshtml" -Raw) @{"Module"= $moduleData; "Commands"= $commands}
+        (Get-Content "$Path\SUMMARY.md" -Raw) -replace "##API##", $apiSummary.Trim() |
             Out-File "$Path\SUMMARY.md" -Encoding ASCII
 
         foreach($command in $commands) {
