@@ -47,7 +47,7 @@ function New-BobTheBook
         }
         mkdir $bookDir
 
-        $machines = ConvertFrom-Json (Get-Content $PSScriptRoot\BobTheBook.json -Raw)
+        $machines = ConvertFrom-Json (Get-Content $BobTheBook\BobTheBook.json -Raw)
         $reposPath = Join-Path $OutputLocation "repos"
         if(Test-Path $reposPath) {
             rm $reposPath -Recurse -Force
