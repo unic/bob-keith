@@ -69,10 +69,14 @@ function New-BobTheBook
             $folder = Join-Path $reposPath $name
             [LibGit2Sharp.Repository]::Clone($machine.url, $folder, $cloneOptions)
 
-            Push-Location $folder
-            & $paket restore
-            Pop-Location
-
+            if (Test-Path "$folder\paket.dependencies") {
+                
+                Push-Location $folder
+                & $paket restore
+                Pop-Location
+                    
+            }
+            
             $docsFolder = Join-Path $folder "generated-docs"
             if($machine.module -and $machine.modulePath) {
                 $modulePath = Join-Path $folder $machine.modulePath
