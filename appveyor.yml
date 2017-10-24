@@ -1,12 +1,13 @@
 version: '{build}'
 image: Visual Studio 2017
 environment:
+  RepoName: bob-keith
   NuGet_PackageId: Unic.Bob.Keith
   Nuspec_File: .\%NuGet_PackageId%.nuspec
   NuGetToken:
     secure: HBsvV7KwZeYdPrZIHlU4PEarV1YAGPCMnxBC8z+l9iojRrgCWTlIXCG0zIR+Y1FE
   Artefact_Output_Dir: .\output
-  GithubEmail: sitecoredev@unic.com
+  GithubEmail: team-unic@unic.com
   GithubUsername: team-unic
   GithubAccessTokenTeamUnic:
     secure: BCEthL/NRFeg5eKK9CgmwbySILxWjMUjpvExHC0oGl1jjAT4kMBAohzh9m/xsVDh
@@ -27,7 +28,6 @@ build: off
 test_script:
   - ps: .\run-tests.ps1
 
-
 deploy:
   - provider: NuGet
     api_key: $(NuGetToken)
@@ -44,5 +44,5 @@ deploy_script:
     if($env:appveyor_repo_tag -eq 'true') {
       .\generateDocs.ps1
       Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
-      .\pushDocs.ps1
+      .\pushDocs.ps1 $env:APPVEYOR_BUILD_FOLDER docs-generated\_book https://github.com/unic/$($env:RepoName).git $($env:GithubEmail) $($env:GithubUsername) $($env:GithubAccessTokenTeamUnic)
     }
