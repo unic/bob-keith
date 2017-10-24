@@ -5,22 +5,16 @@ Generates the documentation for a specific module.
 .DESCRIPTION
 Generates the documentation for a specific module.
 
-
 .PARAMETER ModuleName
 The name of the module for which the documentation should be generated.
 
-
 .PARAMETER Path
 The Path where the documentation should be written to.
-
-
 
 .EXAMPLE
 New-PSApiDoc -ModuleName Dummy -Path "${env:TEMP}\DummyDoc"
 
 Generate the documentation for the "Dummy" module to a temp directory.
-
-
 
 #>
 function New-PSApiDoc
