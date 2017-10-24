@@ -14,7 +14,6 @@ environment:
 
 install:
   - choco install gitversion.portable -y
-  - choco install wget
   - ps: gitversion /l console /output buildserver
   - ps: . .\restore.ps1
   - cmd: nuget pack %Nuspec_File% -version "%GitVersion_NuGetVersionV2%" -OutputDirectory %Artefact_Output_Dir%
@@ -25,8 +24,8 @@ assembly_info:
 
 build: off
 
-test_script:
-  - ps: .\run-tests.ps1
+#test_script: //no tests for Keith!
+#  - ps: .\run-tests.ps1
 
 deploy:
   - provider: NuGet
