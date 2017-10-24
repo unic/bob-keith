@@ -1,4 +1,10 @@
-paket.exe
-docs-generated
-packages
-temp
+# Paket
+packages/
+paket-files/
+.paket/
+!.paket/paket.bootstrapper.exe
+
+
+# Gitbook ouput
+docs-generated/
+temp/
