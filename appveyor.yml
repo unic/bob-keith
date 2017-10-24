@@ -1,7 +1,7 @@
 version: '{build}'
 image: Visual Studio 2017
 environment:
-  NuGet_PackageId: Unic.Bob.
+  NuGet_PackageId: Unic.Bob.Keith
   Nuspec_File: .\%NuGet_PackageId%.nuspec
   NuGetToken:
     secure: HBsvV7KwZeYdPrZIHlU4PEarV1YAGPCMnxBC8z+l9iojRrgCWTlIXCG0zIR+Y1FE
