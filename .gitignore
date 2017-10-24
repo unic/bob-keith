@@ -5,6 +5,7 @@ paket-files/
 !.paket/paket.bootstrapper.exe
 
 
-# Gitbook ouput
+# Gitbook
+docs/node_modules/
 docs-generated/
 temp/
