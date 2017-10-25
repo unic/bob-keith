@@ -1,4 +1,4 @@
-param([string]$buildFolder, [string]$docSource, [string]$repoUrl, [string]$email, [string]$username, [string]$personalAccessToken)
+param([string]$buildFolder, [string]$docSource, [string]$repoUrl, [string]$email, [string]$username)
 
 git config --global user.email $email
 git config --global user.name $username
