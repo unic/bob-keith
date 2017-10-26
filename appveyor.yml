@@ -39,7 +39,7 @@ deploy:
 
 deploy_script:
 - ps: >-
-    $ErrorActionPreference = 'Stop'
+    $ErrorActionPreference = 'Stop';
     if($env:appveyor_repo_tag -eq 'true') {
       .\generateDocs.ps1
       Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
