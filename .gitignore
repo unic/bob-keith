@@ -1,4 +1,11 @@
-paket.exe
-docs-generated
-packages
-temp
+# Paket
+packages/
+paket-files/
+.paket/
+!.paket/paket.bootstrapper.exe
+
+
+# Gitbook
+docs/node_modules/
+docs-generated/
+temp/

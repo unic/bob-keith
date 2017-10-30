@@ -1,0 +1,47 @@
+version: '{build}'
+image: Visual Studio 2017
+environment:
+  RepoName: bob-keith
+  NuGet_PackageId: Unic.Bob.Keith
+  Nuspec_File: .\%NuGet_PackageId%.nuspec
+  NuGetToken:
+    secure: HBsvV7KwZeYdPrZIHlU4PEarV1YAGPCMnxBC8z+l9iojRrgCWTlIXCG0zIR+Y1FE
+  Artefact_Output_Dir: .\output
+  GithubEmail: team-unic@unic.com
+  GithubUsername: team-unic
+  GithubAccessTokenTeamUnic:
+    secure: BCEthL/NRFeg5eKK9CgmwbySILxWjMUjpvExHC0oGl1jjAT4kMBAohzh9m/xsVDh
+
+install:
+  - choco install gitversion.portable -y
+  - ps: gitversion /l console /output buildserver
+  - ps: . .\restore.ps1
+  - cmd: nuget pack %Nuspec_File% -version "%GitVersion_NuGetVersionV2%" -OutputDirectory %Artefact_Output_Dir%
+  - cmd: appveyor PushArtifact %Artefact_Output_Dir%\%NuGet_PackageId%.%GitVersion_NuGetVersionV2%.nupkg"
+
+assembly_info:
+  patch: false
+
+build: off
+
+test: off
+
+deploy:
+  - provider: NuGet
+    api_key: $(NuGetToken)
+    on:
+      branch: master
+
+  - provider: NuGet
+    api_key: $(NuGetToken)
+    on:
+      appveyor_repo_tag: true
+
+deploy_script:
+- ps: >-
+    $ErrorActionPreference = 'Stop';
+    if($env:appveyor_repo_tag -eq 'true') {
+      .\generateDocs.ps1
+      Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+      .\pushDocs.ps1 $env:APPVEYOR_BUILD_FOLDER docs-generated\_book https://github.com/unic/$($env:RepoName).git $($env:GithubEmail) $($env:GithubUsername) $($env:GithubAccessTokenTeamUnic)
+    }

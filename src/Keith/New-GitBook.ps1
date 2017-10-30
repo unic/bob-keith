@@ -10,16 +10,16 @@ In detail New-GitBook performs following tasks:
 * Install all npm modules of the book
 
 .PARAMETER GitBookPath
-The path to the GitBook to build.
+The path to the GitBook to build. (Gitbook build outputs to $GitBookPath\_book.)
 
 .PARAMETER TempPath
 A local temporary path, to use for GitBook and as USEREPROFILE on build server.
 
 .PARAMETER UserName
-The UserName for git.unic.com
+The UserName for Git repository
 
 .PARAMETER Password
-The Password for git.unic.com
+The Password for Git repository
 
 .PARAMETER Buildserver
 If $true, credentials will be written to _netrc and some hacks done to solve problems with x86 and x64 problems.
@@ -27,7 +27,7 @@ The problem is that the USERPROFILE of the Teamcity Agent under C:\Windows\syste
 and therefore it is different under x86 or x64
 
 .EXAMPLE
-New-GitBook ./docs ./temp svc-git-bu-ecs dummy -Buildserver
+New-GitBook ./docs ./temp user pw -Buildserver
 
 #>
 function New-GitBook
@@ -64,11 +64,11 @@ function New-GitBook
 
         Push-Location $TempPath
         Resolve-Path .
-        npm install gitbook@1.5.0
+        npm install gitbook-cli
         Pop-Location
 
         if($buildserver) {
-            $file = "machine git.unic.com`r`n" +
+            $file = "machine github.com`r`n" +
                      "login $username`r`n" +
                      "password $password`r`n" + ""
 
@@ -76,7 +76,7 @@ function New-GitBook
         }
 
         Push-Location $GitBookPath
-        npm install
+        & "$TempPath\node_modules\.bin\gitbook.cmd" install
         & "$TempPath\node_modules\.bin\gitbook.cmd" build
         Pop-Location
 

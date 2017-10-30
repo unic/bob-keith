@@ -3,4 +3,4 @@ NUGET
   specs:
     LibGit2Sharp (0.20.1.0)
     Microsoft.AspNet.Razor (3.2.2)
-    Paket (0.22.6)
+    Paket (5.119.7)
