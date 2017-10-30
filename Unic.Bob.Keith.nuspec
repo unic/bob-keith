@@ -12,6 +12,8 @@
     </metadata>
     <files>
       <file src="src\**" />
-      <file src="packages\**" target="tools\" />
+      <file src="packages\LibGit2Sharp\App_Readme\**" target="tools\LibGit2Sharp\App_Readme\" />
+      <file src="packages\LibGit2Sharp\lib\**" target="tools\LibGit2Sharp\lib\" />
+      <file src="packages\Microsoft.AspNet.Razor\lib\**" target="tools\Microsoft.AspNet.Razor\lib\" />
     </files>
   </package>
