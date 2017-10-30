@@ -1,4 +1,4 @@
-[![Build](https://ci.appveyor.com/api/projects/status/github/unic/bob-keith?svg=true)]
+![Build](https://ci.appveyor.com/api/projects/status/github/unic/bob-keith?svg=true)
 
 # Keith
 
