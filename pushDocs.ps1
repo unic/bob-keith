@@ -1,10 +1,4 @@
-param([string]$buildFolder, [string]$docSource, [string]$repoUrl, [string]$email, [string]$username)
-
-git config --global user.email $email
-git config --global user.name $username
-git config --global push.default simple
-git config --global core.autocrlf true
-git config --global core.safecrlf false
+param([string]$buildFolder, [string]$docSource, [string]$repoUrl
 
 $workingDir = "$($buildFolder)\..\gh-pages"
 $workingBranch = "gh-pages"

@@ -17,6 +17,14 @@ install:
   - choco install gitversion.portable -y
   - ps: gitversion /l console /output buildserver
   - ps: .\restore.ps1
+
+  # Setup GIT
+  - git config --global user.email %GithubEmail%
+  - git config --global user.name %GithubUsername%
+  - git config --global push.default simple
+  - git config --global core.autocrlf true
+  - git config --global core.safecrlf false
+  - git config --global credential.helper store
   
 assembly_info:
   patch: false
@@ -41,6 +49,6 @@ deploy_script:
         nuget push "$($env:Artefact_Output_Dir)\$($env:NuGet_PackageId).$($env:GitVersion_NuGetVersionV2).nupkg" -ApiKey $($env:NuGetToken) -Source https://www.nuget.org/api/v2/package
       }
       if($env:appveyor_repo_tag -eq 'false') {
-        Add-Content ".\.git-credentials" "https://$($env:GithubAccessTokenTeamUnic):x-oauth-basic@github.com`n";
-        .\pushDocs.ps1 $env:APPVEYOR_BUILD_FOLDER docs-generated\_book https://github.com/unic/$($env:RepoName).git $($env:GithubEmail) $($env:GithubUsername)
+        Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:GithubAccessTokenTeamUnic):x-oauth-basic@github.com`n";
+        .\pushDocs.ps1 $env:APPVEYOR_BUILD_FOLDER docs-generated\_book https://github.com/unic/$($env:RepoName).git
       }
