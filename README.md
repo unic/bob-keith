@@ -6,4 +6,4 @@ Keith is responsible for generating the documentation of Bob.
 
 ## Documentation
 
-See [Readme](./README.md)
+See [latest documentation](https://unic.github.io/bob-keith)
