@@ -1,4 +1,4 @@
-param([string]$buildFolder, [string]$docSource, [string]$repoUrl
+param([string]$buildFolder, [string]$docSource, [string]$repoUrl)
 
 $workingDir = "$($buildFolder)\..\gh-pages"
 $workingBranch = "gh-pages"
@@ -25,7 +25,7 @@ if ($thereAreChanges -ne $null) {
     git status
     git commit -m "CI build"
     git status
-    git push
+    git push -q
     Write-Host "Changes pushed succesfully" -ForegroundColor Green
 }
 else { 
