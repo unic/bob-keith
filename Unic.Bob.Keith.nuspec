@@ -1,17 +1,19 @@
 <?xml version="1.0"?>
-  <package >
-    <metadata>
-      <id>Unic.Bob.Keith</id>
-      <authors>Unic AG</authors>
-      <version>$VERSION$</version>
-      <owners>Unic AG</owners>
-      <iconUrl>https://github.com/unic/unic/raw/master/unic_nuget.png</iconUrl>
-      <projectUrl>https://github.com/unic/bob-keith</projectUrl>
-      <requireLicenseAcceptance>false</requireLicenseAcceptance>
-      <description>Documentation generator for Bob machines</description>
-    </metadata>
-    <files>
-      <file src="src\**" />
-      <file src="packages\**" target="tools\" />
-    </files>
-  </package>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Unic.Bob.Keith</id>
+    <authors>Unic AG</authors>
+    <version>$VERSION$</version>
+    <owners>Unic AG</owners>
+    <iconUrl>https://github.com/unic/unic/raw/master/unic_nuget.png</iconUrl>
+    <projectUrl>https://github.com/unic/bob-keith</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Documentation generator for Bob machines</description>
+  </metadata>
+  <files>
+    <file src="src\**" />
+    <file src="packages\LibGit2Sharp\App_Readme\**" target="tools\LibGit2Sharp\App_Readme\" />
+    <file src="packages\LibGit2Sharp\lib\**" target="tools\LibGit2Sharp\lib\" />
+    <file src="packages\Microsoft.AspNet.Razor\lib\**" target="tools\Microsoft.AspNet.Razor\lib\" />
+  </files>
+</package>

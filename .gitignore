@@ -9,3 +9,6 @@ paket-files/
 docs/node_modules/
 docs-generated/
 temp/
+
+# GIT
+.git-credentials

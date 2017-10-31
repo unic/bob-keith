@@ -1,10 +1,7 @@
-param([string]$buildFolder, [string]$docSource, [string]$repoUrl, [string]$email, [string]$username)
-
-git config --global user.email $email
-git config --global user.name $username
-git config --global push.default matching
+param([string]$buildFolder, [string]$docSource, [string]$repoUrl)
 
 $workingDir = "$($buildFolder)\..\gh-pages"
+$workingBranch = "gh-pages"
 
 Push-Location
 
@@ -13,7 +10,7 @@ if (Test-Path("$($workingDir)")) {
 }
 mkdir $workingDir
 
-git clone --quiet --branch=gh-pages "$($repoUrl)" "$($workingDir)"
+git clone --quiet --branch=$workingBranch "$($repoUrl)" "$($workingDir)"
 cd $($workingDir)
 git status
 
@@ -28,7 +25,7 @@ if ($thereAreChanges -ne $null) {
     git status
     git commit -m "CI build"
     git status
-    git push --quiet
+    git push -q
     Write-Host "Changes pushed succesfully" -ForegroundColor Green
 }
 else { 
