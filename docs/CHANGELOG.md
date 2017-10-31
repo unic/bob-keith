@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0
+
+* Initial release on GH
+* Support for Gitbook 3
+
 ## 1.2
 
 * Updated the theme
