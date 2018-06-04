@@ -2,6 +2,7 @@ version: '{build}'
 image: Visual Studio 2017
 
 environment:
+  nodejs_version: "8"
   RepoName: bob-keith
   NuGet_PackageId: Unic.Bob.Keith
   Nuspec_File: .\%NuGet_PackageId%.nuspec
@@ -14,6 +15,13 @@ environment:
     secure: BCEthL/NRFeg5eKK9CgmwbySILxWjMUjpvExHC0oGl1jjAT4kMBAohzh9m/xsVDh
 
 install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm config set loglevel silent
+  #- npm -g install npm@latest
+  #- set PATH=%APPDATA%\npm;%PATH%
+  #- ps: if(-not (Test-Path ".\temp")) { mkdir .\temp }
+  #- cd .\temp
+  #- npm install gitbook-cli
   - choco install gitversion.portable -y
   - ps: gitversion /l console /output buildserver
   - ps: .\restore.ps1
@@ -28,6 +36,10 @@ install:
   
 assembly_info:
   patch: false
+
+before_build:
+  - node --version
+  - npm --version
 
 build_script:
   - cmd: nuget pack %Nuspec_File% -version "%GitVersion_NuGetVersionV2%" -OutputDirectory %Artefact_Output_Dir%
