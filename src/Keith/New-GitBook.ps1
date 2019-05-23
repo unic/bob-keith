@@ -63,7 +63,14 @@ function New-GitBook
         }
 
         Push-Location $TempPath
-        Resolve-Path .
+        $currentPath = Resolve-Path .
+
+        # Write npm config file to suppress warn logs
+        # npm writes warning to stderr stream, which is watched by Appveyor for build failure recognition
+        # all measures to reroute stderr to stdout stream had no effect when used inside a ps module
+        # (although they were succesfullym, if the rerouting happened in a ps cmd called by Appveyor directly)
+        "loglevel=error" | Out-File "$currentPath\.npmrc" -Encoding UTF8
+
         npm install gitbook-cli
         Pop-Location
 
