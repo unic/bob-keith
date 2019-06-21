@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.2
+
+* Suppressed warnings in npm (npm writes warnings to stdErr stream and Appveyor fails the builds if anything is in stdErr stream)
+
 ## 2.0
 
 * Initial release on GH
