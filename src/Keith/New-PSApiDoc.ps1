@@ -39,6 +39,7 @@ function New-PSApiDoc
         mkdir $apiPath | Out-Null
 
         $basePath = Resolve-Path "$PSScriptRoot\..\Templates"
+		New-Item -ItemType Directory -Force -Path $basePath
         Format-RazorTemplate (Get-Content "$basePath\README.cshtml" -Raw) @{"Module"= $moduleData; "Commands"= $commands} |
             Out-File "$apiPath\README.md" -Encoding ASCII
 
