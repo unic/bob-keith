@@ -1,6 +1,4 @@
-﻿$PSScriptRoot = split-path -parent $MyInvocation.MyCommand.Definition
-
-$module = "Keith"
+﻿$module = "Keith"
 
 Import-Module "$PSScriptRoot\src\$module" -Force
 

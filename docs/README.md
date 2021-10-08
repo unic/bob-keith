@@ -8,8 +8,6 @@ To integrate Keith in a bob machine, simply add a paket dependency to "Unic.Bob.
 
     param($username, $password, [switch]$Buildserver)
 
-    $PSScriptRoot = split-path -parent $MyInvocation.MyCommand.Definition
-
     $module = "MyModuleName"
 
     Import-Module "$PSScriptRoot\packages\Unic.Bob.Keith\Keith"
